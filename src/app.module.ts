@@ -7,10 +7,8 @@ import { AppService } from './app.service';
 
 */
 
-import { UsersModule } from 'src/users/users.module';
-
 @Module({
-  imports: [UsersModule],
+  imports: [],
   controllers: [AppController],
   providers: [AppService],
 })
