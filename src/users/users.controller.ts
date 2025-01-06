@@ -14,7 +14,6 @@ import {
   DefaultValuePipe,
   ValidationPipe,
 } from '@nestjs/common';
-import { log } from 'console';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { GetUsersParamDto } from './dtos/get-users-param.dto';
 import { PatchUserDto } from './dtos/patch-user.dto';

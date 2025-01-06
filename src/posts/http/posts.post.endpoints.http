@@ -1,0 +1,17 @@
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+  "title": "a new blog",
+  "postType": "story",
+  "slug":"/dashboard/default",
+  "status": "draft",
+  "content": " habi jabi content",
+  "schema": "sdfadf",
+  "featuredImageUrl": "https://themewagon.freshdesk.com/a/dashboard/default",
+  "publishOn": "02/02/2025",
+  "tags": ["new", "shera", "osthir"],
+  "metaOptions": [{
+    "key": "value"
+  }]
+}
