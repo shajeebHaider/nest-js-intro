@@ -19,7 +19,7 @@ export class CreateUserDto {
   @IsOptional()
   @MinLength(3)
   @MaxLength(90)
-  lastName: string;
+  lastName?: string;
 
   @IsNotEmpty()
   @IsEmail()

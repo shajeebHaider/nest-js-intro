@@ -7,11 +7,11 @@ Content-Type: application/json
   "slug":"/dashboard/default",
   "status": "draft",
   "content": " habi jabi content",
-  "schema": "sdfadf",
+  "schema": "{\"key\":\"value\"}",
   "featuredImageUrl": "https://themewagon.freshdesk.com/a/dashboard/default",
-  "publishOn": "02/02/2025",
+  "publishOn": "2022-09-27 18:00:00.000",
   "tags": ["new", "shera", "osthir"],
   "metaOptions": [{
-    "key": "value"
+    "key": "joybangla",  "value": "muktijuddho"
   }]
 }

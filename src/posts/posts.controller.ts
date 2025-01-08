@@ -11,7 +11,7 @@ export class PostsController {
 
   @Get('/:userId?')
   public getPosts(@Param('userId') userId: string) {
-    return this.postsServices.findAll(userId);
+    // return this.postsServices.findAll(userId);
   }
 
   @ApiOperation({
@@ -23,7 +23,7 @@ export class PostsController {
   })
   @Post()
   public createPost(@Body() createPostDto: CreatePostDto) {
-    console.log(createPostDto);
+    return this.postsServices.createPost(createPostDto);
   }
 
   @ApiOperation({

@@ -60,9 +60,7 @@ export class UsersController {
 
   @Post()
   public createUser(@Body() createUserDto: CreateUserDto) {
-    console.log(createUserDto);
-
-    return 'You sent a post request';
+    return this.userService.createUser(createUserDto);
   }
 
   @Patch()
