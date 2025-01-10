@@ -17,4 +17,7 @@ export class MetaOptionsService {
     );
     newMetaoption = await this.metaOptionsRepository.save(newMetaoption);
   }
+  public async findOne(id: number) {
+    return await this.metaOptionsRepository.findOneBy({ id });
+  }
 }

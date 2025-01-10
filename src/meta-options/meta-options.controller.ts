@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { MetaOptionsService } from './providers/meta-options.service';
 import { CreatePostMetaOptionsDto } from './dtos/create-post-metaoptions.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -13,5 +13,15 @@ export class MetaOptionsController {
     @Body() createPostMetaOptionsDto: CreatePostMetaOptionsDto,
   ) {
     return this.metaOptionservice.create(createPostMetaOptionsDto);
+  }
+
+  @Get(':id')
+  public async getMetaOption(@Param('id') id: number) {
+    const metaOptions = await this.metaOptionservice.findOne(Number(id));
+    console.log(metaOptions);
+
+    if (!metaOptions) {
+      return { message: 'Metaoptions not Found' };
+    }
   }
 }
