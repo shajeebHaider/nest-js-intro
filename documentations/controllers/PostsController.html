@@ -252,7 +252,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
                             <div class="io-description">
@@ -329,7 +329,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
                             <div class="io-description">
@@ -435,7 +435,7 @@ export class PostsController {
 
   @Get(&#x27;/:userId?&#x27;)
   public getPosts(@Param(&#x27;userId&#x27;) userId: string) {
-    return this.postsServices.findAll(userId);
+    // return this.postsServices.findAll(userId);
   }
 
   @ApiOperation({
@@ -447,7 +447,7 @@ export class PostsController {
   })
   @Post()
   public createPost(@Body() createPostDto: CreatePostDto) {
-    console.log(createPostDto);
+    return this.postsServices.createPost(createPostDto);
   }
 
   @ApiOperation({

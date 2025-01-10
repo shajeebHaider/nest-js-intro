@@ -1,5 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { CreateMetaOptionsDto } from './dtos/create-post-metaoptions.dto';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { CreatePostMetaOptionsDto } from '../meta-options/dtos/create-post-metaoptions.dto';
+import { MetaOptions } from 'src/meta-options/meta-options.entity';
 
 @Entity()
 export class Post {
@@ -67,10 +74,7 @@ export class Post {
   })
   tags: string[];
 
-  @Column({
-    type: 'varchar',
-    length: 90,
-    nullable: true,
-  })
-  metaOptions: CreateMetaOptionsDto[];
+  @OneToOne(() => MetaOptions)
+  @JoinColumn()
+  metaOptions?: MetaOptions;
 }

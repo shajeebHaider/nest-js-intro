@@ -16,7 +16,7 @@ import {
 import { Type } from 'class-transformer';
 import { postType } from '../enums/postType.enum';
 import { status } from '../enums/status.enum';
-import { CreateMetaOptionsDto } from './create-post-metaoptions.dto';
+import { CreatePostMetaOptionsDto } from '../../meta-options/dtos/create-post-metaoptions.dto';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreatePostDto {
@@ -108,6 +108,6 @@ export class CreatePostDto {
   @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => CreateMetaOptionsDto)
-  metaOptions?: CreateMetaOptionsDto[];
+  @Type(() => CreatePostMetaOptionsDto)
+  metaOptions?: CreatePostMetaOptionsDto[];
 }

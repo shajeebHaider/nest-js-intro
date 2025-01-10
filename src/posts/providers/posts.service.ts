@@ -29,7 +29,7 @@ export class PostServices {
   // }
 
   public async createPost(createPostDto: CreatePostDto) {
-    let newPost = this.postRepository.create(createPostDto);
-    newPost = await this.postRepository.save(newPost);
+    //let newPost = this.postRepository.create(createPostDto);
+    // newPost = await this.postRepository.save(newPost);
   }
 }

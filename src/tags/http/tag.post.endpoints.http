@@ -1,0 +1,11 @@
+POST http://localhost:3000/tags
+Content-Type: application/json
+
+{
+  "name": "newPost",
+  "slug": "Facebook.com",
+  "description": "this is a new tag",
+  "schema": "{\"key\":\"value\"}",
+  "featureImage": "www.featureimage.com"
+
+}
