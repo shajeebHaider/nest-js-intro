@@ -2,5 +2,5 @@ POST http://localhost:3000/meta-options
 Content-Type: application/json
 
 {
-  "metaValue": "{\"joy\":\"bangla\"}"
+  "metaValue": "{\"title\":\"a new blog\", \"keywords\":\"habijabi, hisamar\"}"
 }

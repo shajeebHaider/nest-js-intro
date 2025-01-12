@@ -74,7 +74,9 @@ export class Post {
   })
   tags: string[];
 
-  @OneToOne(() => MetaOptions)
-  @JoinColumn()
+  @OneToOne(() => MetaOptions, (metaOptions) => metaOptions.post, {
+    cascade: true,
+    eager: true,
+  })
   metaOptions?: MetaOptions;
 }

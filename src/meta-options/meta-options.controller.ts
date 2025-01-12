@@ -18,10 +18,11 @@ export class MetaOptionsController {
   @Get(':id')
   public async getMetaOption(@Param('id') id: number) {
     const metaOptions = await this.metaOptionservice.findOne(Number(id));
-    console.log(metaOptions);
 
     if (!metaOptions) {
       return { message: 'Metaoptions not Found' };
+    } else {
+      return metaOptions;
     }
   }
 }
