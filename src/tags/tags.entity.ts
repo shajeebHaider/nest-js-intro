@@ -5,12 +5,14 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  ManyToMany,
 } from 'typeorm';
+import { Post } from 'src/posts/posts.entity';
 
 @Entity()
 export class Tag {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number[];
 
   @Column({
     type: 'varchar',
@@ -45,6 +47,11 @@ export class Tag {
     nullable: true,
   })
   featuredImage?: string;
+
+  @ManyToMany(() => Post, (post) => post.tags, {
+    onDelete: 'CASCADE',
+  })
+  posts: Post[];
 
   @CreateDateColumn()
   createDate: Date;

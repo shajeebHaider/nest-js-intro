@@ -4,14 +4,15 @@ Content-Type: application/json
 {
   "title": "a new blog",
   "postType": "story",
-  "slug":"/dashboard/default2",
+  "slug":"/dashboard/default/aaa",
   "status": "draft",
   "content": " habi jabi content",
   "schema": "{\"key\":\"value\"}",
   "featuredImageUrl": "https://themewagon.freshdesk.com/a/dashboard/default",
   "publishOn": "2022-09-27 18:00:00.000",
-  //"tags": ["new", "shera", "osthir"],
+  "tags": [1,6,8],
   "metaOptions": {
     "metaValue": "{\"title\":\"a nenene blog\", \"keywords\":\"habijabi, hisamar\"}"
-  }
+  },
+  "authorId": 1
 }

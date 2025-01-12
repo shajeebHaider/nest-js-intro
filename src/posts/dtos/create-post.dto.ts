@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsInt,
   IsDate,
   IsEnum,
   IsISO8601,
@@ -83,12 +84,13 @@ export class CreatePostDto {
   @IsOptional()
   publishOn?: Date;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    description: 'Array of Tags is passed',
+    example: [1, 2],
+  })
   @IsOptional()
   @IsArray()
-  @IsString({ each: true })
-  @MinLength(3, { each: true })
-  tags?: string[];
+  tags?: number[];
 
   @ApiPropertyOptional({
     type: 'object',
@@ -108,4 +110,13 @@ export class CreatePostDto {
   @ValidateNested({ each: true })
   @Type(() => CreatePostMetaOptionsDto)
   metaOptions?: CreatePostMetaOptionsDto | null;
+
+  @IsInt()
+  @IsNotEmpty()
+  @ApiProperty({
+    type: 'integer',
+    required: true,
+    example: 1,
+  })
+  authorId: number;
 }

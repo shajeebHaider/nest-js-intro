@@ -45,7 +45,7 @@ export class PostsController {
   })
   @Patch()
   public updatePost(@Body() patchPostsDto: PatchPostDto) {
-    console.log(patchPostsDto);
+    this.postsServices.updatePost(patchPostsDto);
   }
 
   @Delete()

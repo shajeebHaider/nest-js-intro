@@ -1,7 +1,19 @@
-PATCH http://localhost:3000/posts
+PATCH http://localhost:3000/posts?id=4
 Content-Type: application/json
 
 {
- "id": 123,
- "postType": "post"
+ 
+  "title": "a new blog",
+  "postType": "story you you",
+  "slug":"/dashboard/default/aaao",
+  "status": "draft",
+  "content": " habi jabi content",
+  "schema": "{\"key\":\"value\"}",
+  "featuredImageUrl": "https://themewagon.freshdesk.com/a/dashboard/default",
+  "publishOn": "2022-09-27 18:00:00.000",
+  "tags": [1,8],
+  "metaOptions": {
+    "metaValue": "{\"title\":\"a nenene blog\", \"keywords\":\"habijabi, hisamar\"}"
+  },
+  "authorId": 1
 }
