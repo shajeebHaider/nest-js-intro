@@ -43,9 +43,12 @@ export class PostsController {
     status: 201,
     description: 'Updated successfully',
   })
-  @Patch()
-  public updatePost(@Body() patchPostsDto: PatchPostDto) {
-    this.postsServices.updatePost(patchPostsDto);
+  @Patch(':id')
+  public updatePost(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() patchPostsDto: PatchPostDto,
+  ) {
+    this.postsServices.updatePost(id, patchPostsDto);
   }
 
   @Delete()

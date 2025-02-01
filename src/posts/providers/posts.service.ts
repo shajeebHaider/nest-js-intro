@@ -1,4 +1,10 @@
-import { Injectable, Body } from '@nestjs/common';
+import {
+  Injectable,
+  Body,
+  RequestTimeoutException,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from '../posts.entity';
 import { Repository, ReturningStatementNotSupportedError } from 'typeorm';
@@ -10,6 +16,8 @@ import { UsersService } from 'src/users/providers/users.service';
 import { User } from 'src/users/users.entity';
 import { TagsService } from 'src/tags/providers/tags.service';
 import { PatchPostDto } from '../dtos/patch-post.dto';
+import { error } from 'console';
+import { threadId } from 'worker_threads';
 
 @Injectable()
 export class PostServices {
@@ -60,24 +68,57 @@ export class PostServices {
     // if (newMetaoption) {
     //   await this.metaOptionsRepository.save(newMetaoption);
     // }
-    let author = await this.userService.findOnebyId(createPostDto.authorId);
-    let tags = await this.tagService.findMultipleTags(createPostDto.tags);
-    let newPost = this.postRepository.create({
-      ...createPostDto,
-      author: author,
-      tags: tags,
-    });
-    // if (newMetaoption) {
-    //   newPost.metaOptions = newMetaoption;
-    // }
-    return await this.postRepository.save(newPost);
+    try {
+      let author = await this.userService.findOnebyId(createPostDto.authorId);
+      let tags = await this.tagService.findMultipleTags(createPostDto.tags);
+      let newPost = this.postRepository.create({
+        ...createPostDto,
+        author: author,
+        tags: tags,
+      });
+      // if (newMetaoption) {
+      //   newPost.metaOptions = newMetaoption;
+      // }
+      return await this.postRepository.save(newPost);
+    } catch (error) {
+      throw new RequestTimeoutException(
+        'Unable to process your request at this moment',
+        {
+          description: 'There is an issue while connectiong the database',
+        },
+      );
+    }
   }
 
-  public async updatePost(@Body() patchPostDto: PatchPostDto) {
-    let tags = await this.tagService.findMultipleTags(patchPostDto.tags);
-    let post = await this.postRepository.findOneBy({
-      id: patchPostDto.id,
-    });
+  public async updatePost(id: number, @Body() patchPostDto: PatchPostDto) {
+    let tags = undefined;
+    let post = undefined;
+
+    try {
+      tags = await this.tagService.findMultipleTags(patchPostDto.tags);
+    } catch (error) {
+      throw new RequestTimeoutException(
+        'Unable to process your request at this time',
+      );
+    }
+
+    if (!tags || tags.length !== patchPostDto.tags.length) {
+      throw new BadRequestException(
+        'Please check your tag ids and ensure they are correct',
+      );
+    }
+
+    try {
+      post = await this.postRepository.findOneBy({ id });
+    } catch (error) {
+      throw new RequestTimeoutException(
+        'Unable to process your request at this mote',
+      );
+    }
+
+    if (!post) {
+      throw new NotFoundException(`Post with ID ${id} not found`);
+    }
     post.title = patchPostDto.title ?? post.title;
     post.content = patchPostDto.content ?? post.content;
     post.status = patchPostDto.content ?? post.status;
@@ -88,7 +129,14 @@ export class PostServices {
     post.publishOn = patchPostDto.publishOn ?? post.publishOn;
 
     post.tags = tags;
+    try {
+      await this.postRepository.save(post);
+    } catch (error) {
+      throw new RequestTimeoutException(
+        'Unable to process your request at this mote',
+      );
+    }
 
-    return await this.postRepository.save(post);
+    return post;
   }
 }

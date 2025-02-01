@@ -2,9 +2,9 @@ POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
-  "title": "a new blog",
+  "title": "a new blog after try cathc",
   "postType": "story",
-  "slug":"/dashboard/default/aaa",
+  "slug":"a-new-blog-after-try-catch",
   "status": "draft",
   "content": " habi jabi content",
   "schema": "{\"key\":\"value\"}",

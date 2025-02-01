@@ -1,10 +1,10 @@
-PATCH http://localhost:3000/posts?id=4
+PATCH http://localhost:3000/posts/5
 Content-Type: application/json
 
 {
  
-  "title": "a new blog",
-  "postType": "story you you",
+  "title": "a new blog update catch",
+  "postType": "page",
   "slug":"/dashboard/default/aaao",
   "status": "draft",
   "content": " habi jabi content",
@@ -16,4 +16,5 @@ Content-Type: application/json
     "metaValue": "{\"title\":\"a nenene blog\", \"keywords\":\"habijabi, hisamar\"}"
   },
   "authorId": 1
+  
 }
