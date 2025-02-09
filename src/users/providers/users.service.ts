@@ -20,6 +20,7 @@ import { error } from 'console';
 import { UsersCreateManyProvider } from './users-create-many.provider';
 import { CreateManyUsersDto } from '../dtos/create-many-user.dto';
 import { CreateUserProvider } from './create-user.provider';
+import { FindUserByEmailsProvider } from './find-user-by-emails.provider';
 // import { ConfigService } from '@nestjs/config';
 /**
  *
@@ -37,6 +38,8 @@ export class UsersService {
     private readonly userCreateManyProviders: UsersCreateManyProvider,
 
     private readonly createUserProvider: CreateUserProvider,
+
+    private readonly findUserbyEmailProvider: FindUserByEmailsProvider,
   ) {}
 
   public async createUser(createUserDto: CreateUserDto) {
@@ -83,5 +86,9 @@ export class UsersService {
 
   public async createMany(createManyUsersDto: CreateManyUsersDto) {
     return await this.userCreateManyProviders.createMany(createManyUsersDto);
+  }
+
+  public async findUserByEmail(email: string) {
+    return await this.findUserbyEmailProvider.findUserByEmail(email);
   }
 }

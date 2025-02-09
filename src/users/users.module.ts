@@ -7,11 +7,12 @@ import { User } from './users.entity';
 import { ConfigModule } from '@nestjs/config';
 import { UsersCreateManyProvider } from './providers/users-create-many.provider';
 import { CreateUserProvider } from './providers/create-user.provider';
+import { FindUserByEmailsProvider } from './providers/find-user-by-emails.provider';
 import profileConfig from './config/profile.config';
 
 @Module({
   controllers: [UsersController],
-  providers: [UsersService, UsersCreateManyProvider, CreateUserProvider],
+  providers: [UsersService, UsersCreateManyProvider, CreateUserProvider, FindUserByEmailsProvider],
   exports: [UsersService],
   imports: [
     forwardRef(() => AuthModule),
