@@ -18,6 +18,10 @@ import { TagsService } from 'src/tags/providers/tags.service';
 import { PatchPostDto } from '../dtos/patch-post.dto';
 import { error } from 'console';
 import { threadId } from 'worker_threads';
+import { skip } from 'rxjs';
+import { GetPostDto } from '../dtos/get-post-dto';
+import { PaginationProvider } from 'src/common/pagination/providers/pagination.provider';
+import { Paginated } from 'src/common/pagination/interfaces/paginated.interface';
 
 @Injectable()
 export class PostServices {
@@ -32,15 +36,21 @@ export class PostServices {
     public readonly metaOptionsRepository: Repository<MetaOptions>,
 
     private readonly tagService: TagsService,
+
+    private readonly paginationProvider: PaginationProvider,
   ) {}
-  public async findAll(userId: number) {
-    let posts = await this.postRepository.find({
-      relations: {
-        metaOptions: true,
-        author: true,
-        tags: true,
+
+  public async findAll(
+    postQuery: GetPostDto,
+    userId: string,
+  ): Promise<Paginated<Post>> {
+    let posts = await this.paginationProvider.paginateQuery(
+      {
+        limit: postQuery.limit,
+        page: postQuery.page,
       },
-    });
+      this.postRepository,
+    );
     return posts;
   }
 
@@ -133,7 +143,7 @@ export class PostServices {
       await this.postRepository.save(post);
     } catch (error) {
       throw new RequestTimeoutException(
-        'Unable to process your request at this mote',
+        'Unable to process your request at this momment',
       );
     }
 

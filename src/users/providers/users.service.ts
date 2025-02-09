@@ -17,6 +17,8 @@ import { ConfigType } from '@nestjs/config';
 import profileConfig from '../config/profile.config';
 import { status } from 'src/posts/enums/status.enum';
 import { error } from 'console';
+import { UsersCreateManyProvider } from './users-create-many.provider';
+import { CreateManyUsersDto } from '../dtos/create-many-user.dto';
 // import { ConfigService } from '@nestjs/config';
 /**
  *
@@ -31,7 +33,7 @@ export class UsersService {
     @Inject(profileConfig.KEY)
     private readonly profileConfiguration: ConfigType<typeof profileConfig>,
 
-    private readonly dataSource: DataSource,
+    private readonly userCreateManyProviders: UsersCreateManyProvider,
   ) {}
 
   public async createUser(createUserDto: CreateUserDto) {
@@ -107,25 +109,7 @@ export class UsersService {
     }
   }
 
-  public async createMany(createUsersDto: CreateUserDto[]) {
-    let newUsers: User[] = [];
-    //create a query runner
-    const queryRunner = this.dataSource.createQueryRunner();
-    await queryRunner.connect();
-
-    await queryRunner.startTransaction();
-
-    try {
-      for (let user of createUsersDto) {
-        let newUser = queryRunner.manager.create(User, user);
-        let result = await queryRunner.manager.save(newUser);
-        newUsers.push(result);
-      }
-      await queryRunner.commitTransaction();
-    } catch (error) {
-      await queryRunner.rollbackTransaction();
-    } finally {
-      await queryRunner.release();
-    }
+  public async createMany(createManyUsersDto: CreateManyUsersDto) {
+    return await this.userCreateManyProviders.createMany(createManyUsersDto);
   }
 }

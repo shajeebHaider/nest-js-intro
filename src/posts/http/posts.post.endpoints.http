@@ -2,14 +2,13 @@ POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
-  "title": "a new blog after try cathc",
+  "title": "a blog joy pagination",
   "postType": "story",
-  "slug":"a-new-blog-after-try-catch",
+  "slug":"a-new-blog-after-you-you",
   "status": "draft",
   "content": " habi jabi content",
   "schema": "{\"key\":\"value\"}",
   "featuredImageUrl": "https://themewagon.freshdesk.com/a/dashboard/default",
-  "publishOn": "2022-09-27 18:00:00.000",
   "tags": [1,6,8],
   "metaOptions": {
     "metaValue": "{\"title\":\"a nenene blog\", \"keywords\":\"habijabi, hisamar\"}"
