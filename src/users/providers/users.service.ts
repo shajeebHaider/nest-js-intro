@@ -19,6 +19,7 @@ import { status } from 'src/posts/enums/status.enum';
 import { error } from 'console';
 import { UsersCreateManyProvider } from './users-create-many.provider';
 import { CreateManyUsersDto } from '../dtos/create-many-user.dto';
+import { CreateUserProvider } from './create-user.provider';
 // import { ConfigService } from '@nestjs/config';
 /**
  *
@@ -34,41 +35,12 @@ export class UsersService {
     private readonly profileConfiguration: ConfigType<typeof profileConfig>,
 
     private readonly userCreateManyProviders: UsersCreateManyProvider,
+
+    private readonly createUserProvider: CreateUserProvider,
   ) {}
 
   public async createUser(createUserDto: CreateUserDto) {
-    let existingUser = undefined;
-    try {
-      existingUser = await this.usersRepository.findOne({
-        where: { email: createUserDto.email },
-      });
-    } catch (error) {
-      throw new RequestTimeoutException(
-        'Unable to process your request at this time',
-        {
-          description: 'error connecting the database',
-        },
-      );
-    }
-
-    if (existingUser) {
-      throw new BadGatewayException('Thse user already exist');
-    }
-
-    let newUser = this.usersRepository.create(createUserDto);
-
-    try {
-      newUser = await this.usersRepository.save(newUser);
-    } catch (error) {
-      throw new RequestTimeoutException(
-        'Unable to process your request right now',
-        {
-          description: 'error connecting to the database',
-        },
-      );
-    }
-
-    return newUser;
+    return this.createUserProvider.createUser(createUserDto);
   }
   /**
    *
