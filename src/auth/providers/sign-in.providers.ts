@@ -8,12 +8,20 @@ import {
 import { SignInDto } from '../dtos/signin.dto';
 import { UsersService } from 'src/users/providers/users.service';
 import { HashingProvider } from './hashing.provider';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigType } from '@nestjs/config';
+import jwtConfig from '../config/jwt.config';
 
 @Injectable()
 export class SignInProviders {
   constructor(
     @Inject(forwardRef(() => UsersService))
     private readonly userService: UsersService,
+
+    private readonly jwtService: JwtService,
+
+    @Inject(jwtConfig.KEY)
+    private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
 
     private readonly hashingProvider: HashingProvider,
   ) {}
@@ -35,10 +43,20 @@ export class SignInProviders {
       throw new UnauthorizedException('Invalid email or password');
     }
 
-    return { message: 'Login successful' }; // Replace with JWT token if needed
+    const accessToken = await this.jwtService.signAsync(
+      {
+        sub: user.id,
+        email: user.email,
+      },
+      {
+        audience: this.jwtConfiguration.audience,
+        issuer: this.jwtConfiguration.issuer,
+        secret: this.jwtConfiguration.secret,
+        expiresIn: this.jwtConfiguration.accessToTokenTtl,
+      },
+    );
+    return {
+      accessToken,
+    };
   }
 }
-//finding the user email
-//error show if not found
-//match pass if found
-//send a sucess
