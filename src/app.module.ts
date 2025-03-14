@@ -66,12 +66,6 @@ const ENV = process.env.NODE_ENV;
     PaginationModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: APP_GUARD,
-      useClass: AccessTokenGuard,
-    },
-  ],
+  providers: [AppService],
 })
 export class AppModule {}

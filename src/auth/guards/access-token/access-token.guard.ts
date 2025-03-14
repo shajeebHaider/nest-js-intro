@@ -6,11 +6,11 @@ import {
 } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { Observable } from 'rxjs';
+
 import jwtConfig from 'src/auth/config/jwt.config';
 import { Inject } from '@nestjs/common';
 import { Request } from 'express';
-import { log } from 'console';
+
 import { REQUEST_USER_KEY } from 'src/auth/constants/auth.contnats';
 
 @Injectable()
@@ -50,7 +50,7 @@ export class AccessTokenGuard implements CanActivate {
   }
 
   private extractRequestFromHeader(request: Request): string | undefined {
-    const [_, token] = request.headers.authorization?.split('') ?? [];
+    const [_, token] = request.headers.authorization?.split(' ') ?? [];
     return token;
   }
 }

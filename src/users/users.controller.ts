@@ -25,6 +25,7 @@ import { CreateManyUsersDto } from './dtos/create-many-user.dto';
 import { AccessTokenGuard } from 'src/auth/guards/access-token/access-token.guard';
 import { AuthType } from 'src/auth/enums/auth-type.enum';
 import { Auth } from 'src/auth/decorator/auth.decorator';
+
 @Controller('users')
 @ApiTags('Users')
 export class UsersController {
@@ -65,8 +66,7 @@ export class UsersController {
   }
 
   @Post()
-  //@SetMetadata('authType', 'none')
-  @Auth(AuthType.None)
+  @SetMetadata('authType', 'none')
   public createUser(@Body() createUserDto: CreateUserDto) {
     return this.userService.createUser(createUserDto);
   }
