@@ -11,7 +11,7 @@ import jwtConfig from 'src/auth/config/jwt.config';
 import { Inject } from '@nestjs/common';
 import { Request } from 'express';
 
-import { REQUEST_USER_KEY } from 'src/auth/constants/auth.contnats';
+import { REQUEST_USER_KEY } from 'src/auth/constants/auth.constants';
 
 @Injectable()
 export class AccessTokenGuard implements CanActivate {

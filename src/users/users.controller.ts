@@ -66,12 +66,12 @@ export class UsersController {
   }
 
   @Post()
-  @SetMetadata('authType', 'none')
+  //@SetMetadata('authType', 'None')
+  @Auth(AuthType.None)
   public createUser(@Body() createUserDto: CreateUserDto) {
     return this.userService.createUser(createUserDto);
   }
 
-  @UseGuards(AccessTokenGuard)
   @Post('create-many')
   public async createManyUser(@Body() createManyUsersDto: CreateManyUsersDto) {
     return await this.userService.createMany(createManyUsersDto);

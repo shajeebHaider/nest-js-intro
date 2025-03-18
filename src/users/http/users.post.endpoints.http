@@ -1,16 +1,17 @@
 POST http://localhost:3000/users
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ2h1bUBkb2UuY29tIiwiaWF0IjoxNzQyMjc0OTIyLCJleHAiOjE3NDIyNzg1MjIsImF1ZCI6ImxvY2FsaG9zdDozMDAwIiwiaXNzIjoibG9jYWxob3N0OjMwMDAifQ.s5THDyS6niWSjzX2TQGlE1vICSXXHU9WqyjQ53FyYUo
 
 {
-  "firstName": "Ghum", 
+  "firstName": "Gjsssksssum", 
   "lastName": "doe", 
-  "email" : "ghum@doe.com",
+  "email" : "kmaaaa@doe.com",
   "password": "Password222#"
 }
 
 POST http://localhost:3000/users/create-many
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ2h1bUBkb2UuY29tIiwiaWF0IjoxNzQxOTI3Nzg4LCJleHAiOjE3NDE5MzEzODgsImF1ZCI6ImxvY2FsaG9zdDozMDAwIiwiaXNzIjoibG9jYWxob3N0OjMwMDAifQ.hOGgbMqIvBLlXCUrht5sTZms8Jmcb7BA-sbhD0dbWh0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ2h1bUBkb2UuY29tIiwiaWF0IjoxNzQyMjc0OTIyLCJleHAiOjE3NDIyNzg1MjIsImF1ZCI6ImxvY2FsaG9zdDozMDAwIiwiaXNzIjoibG9jYWxob3N0OjMwMDAifQ.s5THDyS6niWSjzX2TQGlE1vICSXXHU9WqyjQ53FyYUo
 {
   "users": [
   {
