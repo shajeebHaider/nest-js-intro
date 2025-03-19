@@ -22,6 +22,8 @@ import { skip } from 'rxjs';
 import { GetPostDto } from '../dtos/get-post-dto';
 import { PaginationProvider } from 'src/common/pagination/providers/pagination.provider';
 import { Paginated } from 'src/common/pagination/interfaces/paginated.interface';
+import { CreatePostProvider } from './create-post.provider';
+import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 
 @Injectable()
 export class PostServices {
@@ -38,6 +40,8 @@ export class PostServices {
     private readonly tagService: TagsService,
 
     private readonly paginationProvider: PaginationProvider,
+
+    private readonly createPostProvider: CreatePostProvider,
   ) {}
 
   public async findAll(
@@ -70,34 +74,8 @@ export class PostServices {
     return { deleted: true, id };
   }
 
-  public async createPost(@Body() createPostDto: CreatePostDto) {
-    // let newMetaoption = createPostDto.metaOptions
-    //   ? this.metaOptionsRepository.create(createPostDto.metaOptions)
-    //   : null;
-    // if we add cascade in the post entity, we can ignore this conditions and creation of the metaoption table
-    // if (newMetaoption) {
-    //   await this.metaOptionsRepository.save(newMetaoption);
-    // }
-    try {
-      let author = await this.userService.findOnebyId(createPostDto.authorId);
-      let tags = await this.tagService.findMultipleTags(createPostDto.tags);
-      let newPost = this.postRepository.create({
-        ...createPostDto,
-        author: author,
-        tags: tags,
-      });
-      // if (newMetaoption) {
-      //   newPost.metaOptions = newMetaoption;
-      // }
-      return await this.postRepository.save(newPost);
-    } catch (error) {
-      throw new RequestTimeoutException(
-        'Unable to process your request at this moment',
-        {
-          description: 'There is an issue while connectiong the database',
-        },
-      );
-    }
+  public async createPost(createPostDto: CreatePostDto, user: ActiveUserData) {
+    return await this.createPostProvider.createPost(createPostDto, user);
   }
 
   public async updatePost(id: number, @Body() patchPostDto: PatchPostDto) {
