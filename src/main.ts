@@ -30,7 +30,6 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   //enable cors
   app.enableCors();
-  app.useGlobalInterceptors(new DataResponseInterceptor());
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

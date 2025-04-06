@@ -4,13 +4,18 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import { Observable, tap } from 'rxjs';
+import { ConfigService } from '@nestjs/config';
+import { Observable, map } from 'rxjs';
 
 @Injectable()
 export class DataResponseInterceptor implements NestInterceptor {
+  constructor(private readonly configService: ConfigService) {}
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    console.log('beofore...');
-
-    return next.handle().pipe(tap((data) => console.log('After..', data)));
+    return next.handle().pipe(
+      map((data) => ({
+        apiversion: this.configService.get('appConfig.apiVersion'),
+        data: data,
+      })),
+    );
   }
 }
