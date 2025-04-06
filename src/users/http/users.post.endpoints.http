@@ -1,11 +1,10 @@
 POST http://localhost:3000/users
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ2h1bUBkb2UuY29tIiwiaWF0IjoxNzQyMjc0OTIyLCJleHAiOjE3NDIyNzg1MjIsImF1ZCI6ImxvY2FsaG9zdDozMDAwIiwiaXNzIjoibG9jYWxob3N0OjMwMDAifQ.s5THDyS6niWSjzX2TQGlE1vICSXXHU9WqyjQ53FyYUo
 
 {
-  "firstName": "Gjsssksssum", 
-  "lastName": "doe", 
-  "email" : "kmaaaa@doe.com",
+  "firstName": "Gsksssum", 
+  "lastName": "dsoe", 
+  "email" : "keel@doe.com",
   "password": "Password222#"
 }
 
