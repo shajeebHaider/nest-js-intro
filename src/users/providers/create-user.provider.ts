@@ -6,7 +6,8 @@ import { User } from '../users.entity';
 import { RequestTimeoutException, BadGatewayException } from '@nestjs/common';
 import { HashingProvider } from 'src/auth/providers/hashing.provider';
 import { InjectRepository } from '@nestjs/typeorm';
-import { create } from 'domain';
+
+import { MailService } from 'src/mail/providers/mail.service';
 
 @Injectable()
 export class CreateUserProvider {
@@ -16,6 +17,7 @@ export class CreateUserProvider {
 
     @Inject(forwardRef(() => HashingProvider))
     private readonly hashingProvider: HashingProvider,
+    private readonly mailService: MailService,
   ) {}
   public async createUser(createUserDto: CreateUserDto) {
     let existingUser = undefined;
@@ -51,7 +53,11 @@ export class CreateUserProvider {
         },
       );
     }
-
+    try {
+      await this.mailService.sendUserWelcome(newUser);
+    } catch (error) {
+      console.error('Failed to send welcome email', error);
+    }
     return newUser;
   }
 }
