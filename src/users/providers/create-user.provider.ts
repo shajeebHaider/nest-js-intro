@@ -3,7 +3,7 @@ import { CreateUserDto } from '../dtos/create-user.dto';
 import { Repository } from 'typeorm';
 import { User } from '../users.entity';
 
-import { RequestTimeoutException, BadGatewayException } from '@nestjs/common';
+import { RequestTimeoutException, BadRequestException } from '@nestjs/common';
 import { HashingProvider } from 'src/auth/providers/hashing.provider';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -35,7 +35,7 @@ export class CreateUserProvider {
     }
 
     if (existingUser) {
-      throw new BadGatewayException('Thse user already exist');
+      throw new BadRequestException('Thse user already exist');
     }
 
     let newUser = this.usersRepository.create({
